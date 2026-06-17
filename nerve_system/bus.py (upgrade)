@@ -7,9 +7,15 @@ class EventBus:
         self.redis = redis.Redis(host=host, port=port, decode_responses=True)
 
     def publish(self, channel, event):
+        """
+        Send event to Redis channel
+        """
         self.redis.publish(channel, json.dumps(event))
 
     def subscribe(self, channel):
+        """
+        Listen to Redis channel
+        """
         pubsub = self.redis.pubsub()
         pubsub.subscribe(channel)
         return pubsub
