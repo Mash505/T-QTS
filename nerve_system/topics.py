@@ -1,0 +1,5 @@
+MARKET_TOPIC = "market_data"
+SIGNAL_TOPIC = "trade_signal"
+RISK_TOPIC = "risk_check"
+EXECUTION_TOPIC = "execution_result"
+MEMORY_TOPIC = "memory_log"
