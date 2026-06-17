@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+
+  # =========================
+  # 🧠 T-QTS CORE API
+  # =========================
+  api:
+    build: .
+    container_name: t_qts_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - postgres
+
+  # =========================
+  # ⚡ REDIS (NERVOUS SYSTEM / EVENT BUS)
+  # =========================
+  redis:
+    image: redis:7-alpine
+    container_name: t_qts_redis
+    ports:
+      - "6379:6379"
+
+  # =========================
+  # 🗄️ POSTGRES (MEMORY / HISTORY)
+  # =========================
+  postgres:
+    image: postgres:15
+    container_name: t_qts_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: tqts
+      POSTGRES_USER: tqts_user
+      POSTGRES_PASSWORD: change_me
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+# =========================
+# 💾 PERSISTENT STORAGE
+# =========================
+volumes:
+  postgres_data:
