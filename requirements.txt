@@ -1,0 +1,19 @@
+fastapi
+uvicorn
+pydantic
+redis
+psycopg2-binary
+sqlalchemy
+numpy
+pandas
+python-dotenv
+
+# AI / ML
+torch
+scikit-learn
+
+# Trading (optional hooks)
+ccxt
+
+# Orchestration (future)
+langgraph
